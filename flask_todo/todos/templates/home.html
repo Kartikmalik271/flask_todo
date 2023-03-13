@@ -1,0 +1,42 @@
+ <!-- HOMEPAGE -->
+
+{% extends "layouts.html" %} 
+
+{% block title%}Home{%endblock%}
+
+{% block content %}
+
+<!-- add todo list section -->
+<div class="home-block  col-12 col-lg-5 p-3">
+    <h3 class="col-12">Welcome !!!!</h3>
+    <h1 class="col-12 main-name">- {{user.username.upper()}}</h1>
+        <h4>Create a TODO List</h4>
+        <form method="POST">
+            <div class="form-group">
+                <textarea class="form-control" id="task" name="task" placeholder="Enter todos"></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary col-4">Add Todos</button>   
+        </form>
+    </div>
+
+    <!-- to display the todo list if exists else show create text -->
+<div class="home-display col-12 col-lg-7 p-3" >
+    {%if user.todos %}
+        <div class="list-group list-group-flush col-12 mb-0 pb-0 " id="notes">  
+            {% for todo in user.todos %}
+            <div class="todo-item mt-1 pl-4">
+                <button type="button" class="close  ml-auto p-2" onClick="deleteNote({{todo.id}})">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <p class="pt-3 todo-title"><strong>{{ todo.task }}</strong><br>
+                 <span class="todo-date">{{todo.date.day}}/{{todo.date.month}}{{todo.date.day}}/{{todo.date.year}}</span></p>
+            </div>
+            {% endfor %}
+            </div>
+    {%else%}
+        <p class="create-new-para"> <i class="fa fa-plus-circle"></i> Create your first todos item</p>
+    {%endif%}
+</div>
+            
+
+{%endblock%}
